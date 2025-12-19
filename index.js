@@ -1,7 +1,5 @@
-// ==================== ENV ====================
 require('dotenv').config();
 
-// ==================== EXPRESS (RENDER İÇİN) ====================
 const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -14,7 +12,6 @@ app.listen(PORT, () => {
   console.log(`Web server açık: ${PORT}`);
 });
 
-// ==================== DISCORD ====================
 const { Client, Collection, EmbedBuilder, GatewayIntentBits } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
@@ -28,7 +25,6 @@ const client = new Client({
   ]
 });
 
-// ==================== KOMUT SİSTEMİ ====================
 client.commands = new Collection();
 const PREFIX = '!';
 
@@ -52,27 +48,23 @@ for (const dosya of komutDosyalari) {
   }
 }
 
-// ==================== READY + ACTIVITY ====================
 client.once('clientReady', () => {
   console.log(`${client.user.tag} olarak giriş yapıldı!`);
 
-  // 5 saniye sonra PLAYING ayarla
   setTimeout(() => {
     client.user.setPresence({
       activities: [
-        { name: 'KuramaMC On The Top!', type: 0 } // 0 = PLAYING
+        { name: 'KuramaMC On The Top!', type: 0 }
       ],
       status: 'online'
     });
   }, 5000);
 });
 
-// ==================== OTOROL + HOŞGELDİN ====================
 const OTOROL_ID = '1449295934843388024';
 const HOSGELDIN_KANALI_ID = '1448679747650322454';
 
 client.on('guildMemberAdd', async member => {
-  // Otorol
   const rol = member.guild.roles.cache.get(OTOROL_ID);
   if (rol) {
     try {
@@ -83,14 +75,13 @@ client.on('guildMemberAdd', async member => {
     }
   }
 
-  // Hoşgeldin kanalı
   const kanal = member.guild.channels.cache.get(HOSGELDIN_KANALI_ID);
   if (!kanal) return;
 
   const embed = new EmbedBuilder()
     .setAuthor({
       name: '🎉 KuramaMC Ailesine Hoş Geldin!',
-      iconURL: 'https://i.imgur.com/jLDX0Wf.png' // KÜÇÜK LOGO
+      iconURL: 'https://i.imgur.com/jLDX0Wf.png'
     })
     .setDescription(`
 **${member.user.tag}** aramıza katıldı! 🌟
@@ -109,7 +100,6 @@ Herkes yeni üyemize merhaba desin 👋
 });
 
 
-// ==================== PREFIX KOMUTLAR ====================
 client.on('messageCreate', async message => {
   if (message.author.bot) return;
   if (!message.content.startsWith(PREFIX)) return;
