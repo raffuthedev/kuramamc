@@ -53,7 +53,7 @@ module.exports = {
           .setStyle(ButtonStyle.Success),
         new ButtonBuilder()
           .setCustomId("destek_kaldir")
-          .setLabel("Desteği Kaldır")
+          .setLabel("Desteği Sil")
           .setStyle(ButtonStyle.Danger)
       );
 
@@ -64,7 +64,7 @@ module.exports = {
 
     if (interaction.customId === "destek_sahiplen") {
       if (!member.roles.cache.has("1454393829577986099")) {
-        return interaction.reply({ content: "❌ Bu butona yalnızca yetkililer tıklayabilir!", ephemeral: true });
+        return interaction.reply({ content: "Kendi Destek Biletini Sahiplenemezsin!", ephemeral: true });
       }
 
       const message = interaction.message;
@@ -72,7 +72,7 @@ module.exports = {
       embed.setDescription(`${member} Bu Sohbete Katıldı, Artık Sizinle ${member} İlgilenecek`);
 
       await message.edit({ embeds: [embed] });
-      await interaction.reply({ content: `✅ Desteği Sahiplendiniz.`, ephemeral: true });
+      await interaction.reply({ content: `Destek Sahiplenildi, Lütfen Kullanıcı İle İlgilenin.`, ephemeral: true });
     }
 
 if (interaction.customId === "destek_kaldir") {
@@ -80,7 +80,7 @@ if (interaction.customId === "destek_kaldir") {
   const channel = interaction.channel;
 
   if (!member.roles.cache.has("1454393829577986099") && member.id !== channel.name.replace("destek-", "")) {
-    return interaction.reply({ content: "❌ Bu butona sadece yetkili veya ticket sahibi tıklayabilir!", ephemeral: true });
+    return interaction.reply({ content: "İşlem Başarıyla Sıraya Alındı.", ephemeral: true });
   }
 
   const embed = EmbedBuilder.from(message.embeds[0]);
