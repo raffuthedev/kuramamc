@@ -17,7 +17,8 @@ module.exports = {
         "Destek Sistemine Hoşgeldiniz, Bir Sorunla Karşılaştığınızda Alttaki Butona Tıklayarak Kolayca Destek Talebi Oluşturabilirsiniz\n\n" +
         "🔧 Teknik Destek\n" +
         "💳 Ödeme Sorunları\n" +
-        "🔑 Hesap İşlemleri"
+        "🔑 Hesap İşlemleri\n" +
+        "🤝 Partnerlik Anlaşmaları"
       )
       .setColor("Blue")
       .setFooter({
