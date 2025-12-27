@@ -54,15 +54,15 @@ client.once('clientReady', () => {
   setTimeout(() => {
     client.user.setPresence({
       activities: [
-        { name: 'KuramaMC On The Top!', type: 0 }
+        { name: '⚒️ KuramaMC Yapım Aşamasında! ⚒️', type: 0 }
       ],
       status: 'online'
     });
   }, 5000);
 });
 
-const OTOROL_ID = '1449295934843388024';
-const HOSGELDIN_KANALI_ID = '1448679747650322454';
+const OTOROL_ID = '1454393822728421470';
+const HOSGELDIN_KANALI_ID = '1454515855671951524';
 
 client.on('guildMemberAdd', async member => {
   const rol = member.guild.roles.cache.get(OTOROL_ID);
