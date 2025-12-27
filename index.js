@@ -70,10 +70,10 @@ client.on(Events.MessageCreate, async message => {
 
   await komut.execute(message, client);
 });
-
 const BASVURU_LOG_KANAL = "1454533545396670747";
 const ONAY_KANAL = "1454515007806115984";
 const AI_CHAT_KANAL = "1454516320459690097";
+const MEDYA_KANAL_ID = "1454515901054324779";
 
 const sohbetHafiza = new Map();
 
@@ -117,6 +117,26 @@ client.on(Events.MessageCreate, async message => {
   }
 });
 
+client.on(Events.MessageCreate, async (message) => {
+  if (message.author.bot) return;
+
+  if (message.channel.id === MEDYA_KANAL_ID) {
+    if (message.attachments.size === 0) {
+      await message.delete().catch(() => {});
+
+      const embed = new EmbedBuilder()
+        .setDescription("Bu kanala sadece **resim** gönderilebilir!")
+        .setColor("Red");
+
+      const uyarıMesaj = await message.channel.send({ embeds: [embed] });
+
+      setTimeout(() => {
+        uyarıMesaj.delete().catch(() => {});
+      }, 5000);
+    }
+  }
+});
+
 client.on(Events.InteractionCreate, async interaction => {
 
   if (interaction.isButton() && interaction.customId === "yetkili_basvuru_buton") {
@@ -153,21 +173,21 @@ client.on(Events.InteractionCreate, async interaction => {
     const cevaplar = ["ad","yas","aktiflik","ign","yetki"]
       .map(x => interaction.fields.getTextInputValue(x));
 
-const embed = new EmbedBuilder()
-  .setTitle("📃 Yeni Yetkili Başvurusu")
-  .setColor("Blurple")
-  .setDescription(
-    `${interaction.user}\n\n` +
-    `**1️⃣ Ad**\n${cevaplar[0]}\n\n` +
-    `**2️⃣ Yaş**\n${cevaplar[1]}\n\n` +
-    `**3️⃣ Aktiflik**\n${cevaplar[2]}\n\n` +
-    `**4️⃣ IGN**\n${cevaplar[3]}\n\n` +
-    `**5️⃣ Yetki**\n${cevaplar[4]}`
-  )
-  .setFooter({
-    text: "kuramamc.tkmc.net | KuramaMC",
-    iconURL: interaction.guild.iconURL({ dynamic: true })
-  });
+    const embed = new EmbedBuilder()
+      .setTitle("📃 Yeni Yetkili Başvurusu")
+      .setColor("Blurple")
+      .setDescription(
+        `${interaction.user}\n\n` +
+        `**1️⃣ Ad**\n${cevaplar[0]}\n\n` +
+        `**2️⃣ Yaş**\n${cevaplar[1]}\n\n` +
+        `**3️⃣ Aktiflik**\n${cevaplar[2]}\n\n` +
+        `**4️⃣ IGN**\n${cevaplar[3]}\n\n` +
+        `**5️⃣ Yetki**\n${cevaplar[4]}`
+      )
+      .setFooter({
+        text: "kuramamc.tkmc.net | KuramaMC",
+        iconURL: interaction.guild.iconURL({ dynamic: true })
+      });
 
     const row = new ActionRowBuilder().addComponents(
       new ButtonBuilder()
