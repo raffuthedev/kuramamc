@@ -11,7 +11,7 @@ module.exports = {
     await message.delete().catch(() => {});
 
     const embed = new EmbedBuilder()
-      .setTitle("🎟️ KuramaMC Destek Talebi Sistemi")
+      .setTitle("🎟️ KuramaMC Destek Talebi Sistemi 🎟️")
       .setDescription(
         "-------------------------------\n\n" +
         "Destek Sistemine Hoşgeldiniz, Bir Sorunla Karşılaştığınızda Alttaki Butona Tıklayarak Kolayca Destek Talebi Oluşturabilirsiniz\n\n" +
