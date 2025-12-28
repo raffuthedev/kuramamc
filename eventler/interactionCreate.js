@@ -9,7 +9,7 @@ module.exports = {
     const member = interaction.member;
 
     if (interaction.customId === "destek_talebi_olustur") {
-      const channelName = `destek-${member.user.username.toLowerCase()}`;
+      const channelName = `destek-${member.id}`;
 
       if (guild.channels.cache.find(c => c.name === channelName)) {
         return interaction.reply({ content: "Zaten Aktif Bir Destek Talebiniz Var!!", ephemeral: true });
@@ -73,7 +73,7 @@ module.exports = {
       const channel = interaction.channel;
 
       if (!member.roles.cache.has("1454393829577986099") && member.id !== channel.name.replace("destek-", "")) {
-        return interaction.reply({ content: "İşlem Başarıyla Sıraya Alındı.", ephemeral: true });
+        return interaction.reply({ content: "❌ Bu ticketi sadece kendi açan kullanıcı veya yetkili silebilir.", ephemeral: true });
       }
 
       const embed = EmbedBuilder.from(message.embeds[0]);
