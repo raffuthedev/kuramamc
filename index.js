@@ -87,6 +87,8 @@ const BASVURU_LOG_KANAL = "1454533545396670747";
 const ONAY_KANAL = "1454515007806115984";
 const AI_CHAT_KANAL = "1454516320459690097";
 const MEDYA_KANAL_ID = "1454515901054324779";
+const OTOROL_ID = "1454393822728421470";
+const HOSGELDIN_KANAL = "1454515855671951524";
 
 const sohbetHafiza = new Map();
 
@@ -260,6 +262,34 @@ client.on(Events.InteractionCreate, async interaction => {
 
     await interaction.message.edit({ components: [] });
     return interaction.reply({ content: "Tamamlandı.", ephemeral: true });
+  }
+});
+
+client.on(Events.GuildMemberAdd, async member => {
+  try {
+    const role = await member.guild.roles.fetch(OTOROL_ID);
+    if (role) await member.roles.add(role);
+
+    const kanal = await member.guild.channels.fetch(HOSGELDIN_KANAL);
+    if (kanal) {
+      const embed = new EmbedBuilder()
+        .setTitle("KuramaMC - Hoşgeldin!")
+        .setColor("Green")
+        .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
+        .setDescription(
+          `${member} aramıza katıldı 🌟\nHerkes Yeni Üyemize Merhaba Desin!! 👋\n\n` +
+          `🟢 IP: \`kuramamc.tkmc.net\`\n` +
+          `🟢 Sürüm: 1.21.5+`
+        )
+        .setFooter({
+          text: "Keyifli Oyunlar Dileriz | KuramaMC",
+          iconURL: member.guild.iconURL({ dynamic: true })
+        });
+
+      kanal.send({ embeds: [embed] });
+    }
+  } catch (err) {
+    console.error("Otorol/Hoşgeldin hatası:", err);
   }
 });
 
