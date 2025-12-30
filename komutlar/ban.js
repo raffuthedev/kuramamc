@@ -3,28 +3,54 @@ const { EmbedBuilder, PermissionsBitField } = require('discord.js');
 module.exports = {
     name: 'ban',
     description: 'Üyeyi sunucudan banlar.',
-    usage: '!ban @kullanıcı [sebep]',
+    usage: '!ban @üye #sebep',
     async execute(message, args) {
-        if (!message.member.permissions.has(PermissionsBitField.Flags.BanMembers)) 
-            return message.reply('Bu komutu kullanmak için yeterli yetkin yok!');
+
+        if (!message.member.permissions.has(PermissionsBitField.Flags.BanMembers)) {
+            return message.reply('❌ KuramamaMC Bu Komutu Kullanmak İçin (Üyeleri Yasakla) Yetkinin Olduğunu Düşünmüyor.');
+        }
 
         const user = message.mentions.members.first();
-        const reason = args.slice(1).join(' ') || 'Sebep belirtilmedi';
+        if (!user) {
+            return message.reply('❌ Banlanacak üyeyi etiketle.\nÖrnek: `!ban @üye #sebep`');
+        }
 
-        if (!user) return message.reply('Lütfen banlamak istediğin kullanıcıyı etiketle.');
-        if (!user.bannable) return message.reply('Bu kullanıcıyı yasaklayamazsın!');
+        if (user.id === message.author.id) {
+            return message.reply('Az Önce Kendini Banlamayı Mı Denedin? 🥀🥀');
+        }
 
-        await user.ban({ reason });
+        if (!message.guild.members.me.permissions.has(PermissionsBitField.Flags.BanMembers)) {
+            return message.reply('❌ KuramaMC Yeterli İzinlere Sahip Olduğunu Düşünmüyor..');
+        }
 
-        const date = new Date();
-        const banDate = date.toLocaleString('tr-TR', { dateStyle: 'short', timeStyle: 'short' });
+        if (user.roles.highest.position >= message.member.roles.highest.position) {
+            return message.reply('❌ Bu üyeyi yasaklayamazsın (rolü senden yüksek/eşit).');
+        }
 
-        const embed = new EmbedBuilder()
-            .setColor('Green')
-            .setTitle('Oyuncu Yasaklandı! ✈️')
-            .setDescription(`${user.user.tag} adlı üye sunucudan yasaklandı.\n\n**Yasaklayan Yetkili:** ${message.author}\n**Yasaklanma Tarihi:** ${banDate}`)
-            .setFooter({ text: 'kuramamc.tkmc.net | KuramaMC' });
+        const reason = args.slice(1).join(' ') || 'Nedeni Belirtilmedi';
 
-        message.channel.send({ embeds: [embed] });
+        const banDate = new Date().toLocaleString('tr-TR');
+
+        try {
+            await user.ban({ reason });
+
+            const embed = new EmbedBuilder()
+                .setColor('Green')
+                .setTitle('Oyuncu Yasaklandı! ✈️')
+                .setDescription(
+                    `${user.user.tag} adlı üye sunucudan yasaklandı.\n\n` +
+                    `**Yasaklayan Yetkili:** ${message.author}\n` +
+                    `**Sebep:** ${reason}\n` +
+                    `**Yasaklanma Tarihi:** ${banDate}`
+                )
+                .setFooter({ text: 'kuramamc.tkmc.net | KuramaMC' })
+                .setTimestamp();
+
+            message.channel.send({ embeds: [embed] });
+
+        } catch (err) {
+            console.error(err);
+            message.reply('❌ Bu Oyuncu Yasaklanırken Bir Hata Oluştu.');
+        }
     }
 };
