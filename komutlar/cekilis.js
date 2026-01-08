@@ -54,7 +54,7 @@ function formatRemaining(ms) {
 
 module.exports = {
   name: "çekiliş",
-  async execute(message, args) {
+  async execute(message, client) {
     if (!message.member.permissions.has(PermissionsBitField.Flags.Administrator)) {
       return message.reply("❌ Bu komutu sadece adminler kullanabilir.");
     }
