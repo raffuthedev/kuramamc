@@ -112,7 +112,7 @@ client.on(Events.MessageCreate, async message => {
     const prompt = [
       {
         role: "system",
-        content: "Sen KuramaMC sunucusu için çalışan yardımcı bir yapay zekasın. Sunucu IP Adresi kuramamc.tkmc.net Sürümü 1.21.5 ve Sunucu Henüz Açılmadı Bunları Oyuncular Sorduğuna Söyle"
+        content: "Sen KuramaMC sunucusu için çalışan yardımcı bir yapay zekasın. Sunucu IP Adresi 5.133.100.199 Sürümü 1.21.5 ve Sunucu Henüz Açılmadı Bunları Oyuncular Sorduğuna Söyle"
       },
       ...gecmis
     ]
@@ -199,7 +199,7 @@ client.on(Events.InteractionCreate, async interaction => {
         `**5️⃣ Yetki**\n${cevaplar[4]}`
       )
       .setFooter({
-        text: "kuramamc.tkmc.net | KuramaMC",
+        text: "5.133.100.199 | KuramaMC",
         iconURL: interaction.guild.iconURL({ dynamic: true })
       });
 
@@ -254,7 +254,7 @@ client.on(Events.InteractionCreate, async interaction => {
         }
       )
       .setFooter({
-        text: "kuramamc.tkmc.net | KuramaMC",
+        text: "5.133.100.199 | KuramaMC",
         iconURL: interaction.guild.iconURL({ dynamic: true })
       });
 
@@ -278,7 +278,7 @@ client.on(Events.GuildMemberAdd, async member => {
         .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
         .setDescription(
           `${member} aramıza katıldı 🌟\nHerkes Yeni Üyemize Merhaba Desin!! 👋\n\n` +
-          `🟢 IP: \`kuramamc.tkmc.net\`\n` +
+          `🟢 IP: \`5.133.100.199\`\n` +
           `🟢 Sürüm: 1.21.5+`
         )
         .setFooter({
