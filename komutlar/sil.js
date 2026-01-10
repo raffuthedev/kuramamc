@@ -21,7 +21,7 @@ module.exports = {
         .setColor('Green')
         .setDescription(`🧹 **${silinen.size} mesaj başarıyla silindi.**`)
         .setFooter({
-          text: 'kuramamc.tkmc.net | KuramaMC'
+          text: '5.133.100.199 | KuramaMC'
         });
 
       const bilgi = await message.channel.send({ embeds: [embed] });
